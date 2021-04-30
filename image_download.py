@@ -1,3 +1,5 @@
+import os
+
 from selenium import webdriver
 import urllib.request
 import sys
@@ -40,8 +42,12 @@ class Downloader:
             if "https://s3.amazonaws" in self.src:
                 self.sample_input_src.append(self.src)
         j = 0
+        self.save_folder="Images"
+        def createFolder():
+            if not os.path.exists(self.save_folder):
+                os.mkdir(self.save_folder)
         for self.src in self.sample_input_src[:-(n+1):-1]:
             j = j + 1
             name = "image" + str(j)+".png"
-            urllib.request.urlretrieve(self.src, name)
+            urllib.request.urlretrieve(self.src, os.path.join(self.save_folder, name))
 
